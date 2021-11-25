@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Calcular nota CACD - TPS</title>
 </head>
-<body class="p-5 main">
+<body class="p-5 pb-1 main">
 <main>
     <img src="./logo_cacd_calcular.svg" class="rounded mx-auto d-block mb-3" alt="Calcular Notas do CACD">
     <form class=" p-4 bg-light rounded md form mx-auto d-block">
@@ -36,30 +36,31 @@
         <button type="button" value="Input" class="btn btn-outline-primary mx-auto d-block" onclick="calcular()">calcular</button>
     </div>
 
-    <p class="fs-2 fw-bold text-warning text-center mt-4" id="resultado">. . .</p>
+    <p class="fs-2 fw-bold text-warning text-center mt-4 mb-0" id="resultado">. . .</p>
+    <p class="fs-6 fw-bold text-danger text-center mt-0" id="erroMensagens"></p>
     
     <p class="fs-4 fw-bold text-light text-center">~</p>
 
     <p class="fs-6 fw-bold text-light text-center">Comparativo com as notas de 2021</p>
 
     <div class="progress m-1">
-        <div class="progress-bar bg-secondary userBar" role="progressbar" style="width: 50%">você</div>
+        <div class="progress-bar bg-warning userBar text-dark" role="progressbar" style="width: 50%">você</div>
     </div>
     <div class="progress m-1">
-        <div class="progress-bar bg-info" role="progressbar" style="width: 58.39%">pcd</div>
+        <div class="progress-bar bg-primary text-dark" role="progressbar" style="width: 58.39%; --bs-bg-opacity: .6;">pcd</div>
     </div>
     <div class="progress m-1">
-        <div class="progress-bar bg-warning" role="progressbar" style="width: 59.58%">negros</div>
+        <div class="progress-bar bg-primary text-dark" role="progressbar" style="width: 59.58%; --bs-bg-opacity: .8;">negros</div>
     </div>
     <div class="progress m-1">
-        <div class="progress-bar bg-danger" role="progressbar" style="width: 68.15%">ampla</div>
+        <div class="progress-bar bg-primary text-dark" role="progressbar" style="width: 68.15%">ampla</div>
     </div>
 </main>
 <footer class="mt-5">
     <a href="https://www.linkedin.com/in/williroger/">
-        <p class="text-center"><span class="badge bg-secondary">feito com <i class="fas fa-heart"></i> por Roger <i class="fab fa-linkedin"></i></span></p>
+        <p class="text-center mb-0"><span class="badge bg-secondary">feito com <i class="fas fa-heart"></i> por Roger <i class="fab fa-linkedin"></i></span></p>
     </a>
-    <p class="text-center"><span class="badge">V. 0.0.3</span></p>
+    <p class="text-center mb-0"><span class="badge">V. 0.0.4</span></p>
 </footer>
 </body>
 <script>
@@ -86,14 +87,22 @@
     // amplaConcorrenciaBar.setAttributeNode(style);   
 
 
-
     function calcular(){
         var acertos = document.getElementById('acertos').value
         var erros = document.getElementById('erros').value
         var valorAcertos = acertos * 0.25
-        var valorErros = erros*0.125
+        var valorErros = erros * 0.125
+        var somaAcertosErros = (+acertos) + (+erros)
         var resultado = valorAcertos-valorErros
-        document.getElementById("resultado").innerHTML = resultado +" pontos";
+
+        //teste números de assertivas
+        if (somaAcertosErros > 292) {
+            document.getElementById("resultado").innerHTML = resultado +" pontos";
+            document.getElementById("erroMensagens").innerHTML = "atenção: número de assertivas marcadas é maior que 292";
+        } else {
+            document.getElementById("resultado").innerHTML = resultado +" pontos";
+            document.getElementById("erroMensagens").innerHTML = "";
+        }
 
         resultadoPorCento = 1.3698 * resultado
 
@@ -107,6 +116,10 @@
     .main {
         font-family: 'Shippori Antique', sans-serif;
         background-color: black;
+        align-items: center;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 1020px;
     }
     img {
         width: 250px
