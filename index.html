@@ -19,32 +19,88 @@
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">acertos</label>
             <input type="number" class="form-control" min="0" max="292" id="acertos">
-            <div class="form-text">número de asertivas (0-292)</div>
+            <div class="form-text">número de asertivas TPS (0-292)</div>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">erros</label>
-            <input type="number" class="form-control" min="0" max="292" id="erros">
-            <div id="" class="form-text">número de asertivas (0-292)</div>
+            <input type="number" class="form-control" min="0" max="292" id="erros">  
+            <div id="" class="form-text">número de asertivas TPS (0-292)</div>   
+        </div>
+        <div>
+            <div id="" class="form-text">
+            +0,25 para acertos e -0,125 para erros, conforme o Edital 2020
+            </div>
         </div> 
     </form>
     <div class="mt-3">
         <button type="button" value="Input" class="btn btn-outline-primary mx-auto d-block" onclick="calcular()">calcular</button>
-    </div> 
+    </div>
+
     <p class="fs-2 fw-bold text-warning text-center mt-4" id="resultado">. . .</p>
+    
+    <p class="fs-4 fw-bold text-light text-center">~</p>
+
+    <p class="fs-6 fw-bold text-light text-center">Comparativo com as notas de 2021</p>
+
+    <div class="progress m-1">
+        <div class="progress-bar bg-secondary userBar" role="progressbar" style="width: 40%">você</div>
+    </div>
+    <div class="progress m-1">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 58.39%">pcd</div>
+    </div>
+    <div class="progress m-1">
+        <div class="progress-bar bg-warning" role="progressbar" style="width: 59.58%">negros</div>
+    </div>
+    <div class="progress m-1">
+        <div class="progress-bar bg-danger" role="progressbar" style="width: 68.15%">ampla</div>
+    </div>
 </main>
-<footer class="mt-5 bottom-0 start-50">
+<footer class="mt-5">
     <a href="https://www.linkedin.com/in/williroger/">
         <p class="text-center"><span class="badge bg-secondary">feito com <i class="fas fa-heart"></i> por Roger <i class="fab fa-linkedin"></i></span></p>
     </a>
+    <p class="text-center"><span class="badge">V. 0.0.3</span></p>
 </footer>
 </body>
 <script>
+
+    //2020 ou 2021
+    // var pcd = 42.63;
+    // var negros = 43.50 - pcd;
+    // var amplaConcorrencia = 49.75 - (negros + pcd);
+
+    // var pcdBar = document.getElementsByClassName("pcdBar")[0];
+    // var style = document.createAttribute("style");
+    // style.value = "width: "+pcd+"%";
+    // pcdBar.setAttributeNode(style);       
+    
+    
+    // var negrosBar = document.getElementsByClassName("negrosBar")[0];
+    // var style = document.createAttribute("style");
+    // style.value = "width: "+negros+"%";
+    // negrosBar.setAttributeNode(style);    
+
+    // var amplaConcorrenciaBar = document.getElementsByClassName("amplaConcorrenciaBar")[0];
+    // var style = document.createAttribute("style");
+    // style.value = "width: "+amplaConcorrencia+"%";
+    // amplaConcorrenciaBar.setAttributeNode(style);   
+
+
+
     function calcular(){
         var acertos = document.getElementById('acertos').value
         var erros = document.getElementById('erros').value
         var valorAcertos = acertos * 0.25
         var valorErros = erros*0.125
-        document.getElementById("resultado").innerHTML = valorAcertos-valorErros +" pontos";
+        var resultado = valorAcertos-valorErros
+        document.getElementById("resultado").innerHTML = resultado +" pontos";
+
+        resultadoPorCento = 1.3698 * resultado
+
+        var userBar = document.getElementsByClassName("userBar")[0];
+        var style = document.createAttribute("style");
+        style.value = "width: "+resultadoPorCento+"%";
+        userBar.setAttributeNode(style);   
     }
 </script>
 <style>
